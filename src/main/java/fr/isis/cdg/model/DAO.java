@@ -18,31 +18,31 @@ import javax.sql.DataSource;
  * @author corentin
  */
 public class DAO {
-    
+
     protected final DataSource dataSource;
-    
+
     public DAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    
+
     public int numberOfCustomers() {
         String sql = "select count(*) as number from CUSTOMER";
-        
+
         int result = 0;
-        
-        try {    
+
+        try {
             Connection connection = dataSource.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 result = rs.getInt("number");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return result;
     }
-    
+
 }

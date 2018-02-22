@@ -12,20 +12,20 @@ import javax.sql.DataSource;
  * @author corentin
  */
 public class DataSourceFactory {
-    
+
     public static DataSource getDataSource() {
         DataSource result;
-   
+
         org.apache.derby.jdbc.ClientDataSource ds = new org.apache.derby.jdbc.ClientDataSource();
         ds.setDatabaseName("sample");
         ds.setUser("app");
         ds.setPassword("app");
-        
+
         ds.setServerName("localhost");
-        
+
         ds.setPortNumber(1527);
-       
+
         return ds;
     }
-    
+
 }

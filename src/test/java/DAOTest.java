@@ -21,37 +21,37 @@ import javax.sql.DataSource;
  * @author corentin
  */
 public class DAOTest {
-    
+
     private DAO myDAO;
     private DataSource myDataSource;
-    
+
     public DAOTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         myDataSource = DataSourceFactory.getDataSource();
         myDAO = new DAO(myDataSource);
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void testNumberOfCustomers() {
         int result = myDAO.numberOfCustomers();
         assertEquals(13, result);
     }
-  
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
