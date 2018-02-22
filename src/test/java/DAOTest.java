@@ -39,10 +39,17 @@ public class DAOTest {
     @Before
     public void setUp() {
         myDataSource = DataSourceFactory.getDataSource();
+        myDAO = new DAO(myDataSource);
     }
     
     @After
     public void tearDown() {
+    }
+    
+    @Test
+    public void testNumberOfCustomers() {
+        int result = myDAO.numberOfCustomers();
+        assertEquals(13, result);
     }
   
     // TODO add test methods here.
