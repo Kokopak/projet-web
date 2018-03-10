@@ -46,18 +46,18 @@ public class DAO {
 
         return result;
     }
-    
+
     public float turnoverByCategory(String category, String dateDep, String dateArr) {
         String sql = "select * "
-                + "from product " 
+                + "from product "
                 + "inner join purchase_order using (product_id) "
                 + "inner join product_code on (product_code = prod_code) "
                 + "inner join discount_code using(discount_code) "
                 + "where product_code=? "
                 + "and sales_date between ? and ?";
-        
+
         float somme = 0;
-        
+
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -65,13 +65,74 @@ public class DAO {
             stmt.setDate(2, Date.valueOf(dateDep));
             stmt.setDate(3, Date.valueOf(dateArr));
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 float prix = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
                 somme += prix;
-//System.out.println(rs.getString("product_code")+ " "+ rs.getInt("quantity") + " " + rs.getDate("sales_date"));
             }
-            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return somme;
+    }
+
+    public float turnoverByState(String state, String dateDep, String dateArr) {
+        String sql = "select * "
+                + "from product "
+                + "inner join purchase_order using (product_id) "
+                + "inner join product_code on (product_code = prod_code) "
+                + "inner join discount_code using(discount_code) "
+                + "inner join customer using(customer_id) "
+                + "where state=? "
+                + "and sales_date between ? and ?";
+
+        float somme = 0;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, state);
+            stmt.setDate(2, Date.valueOf(dateDep));
+            stmt.setDate(3, Date.valueOf(dateArr));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                float prix = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
+                somme += prix;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return somme;
+    }
+    
+     public float turnoverByCustomer(int customerId, String dateDep, String dateArr) {
+        String sql = "select * "
+                + "from product "
+                + "inner join purchase_order using (product_id) "
+                + "inner join product_code on (product_code = prod_code) "
+                + "inner join discount_code using(discount_code) "
+                + "inner join customer using(customer_id) "
+                + "where customer_id=? "
+                + "and sales_date between ? and ?";
+
+        float somme = 0;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, customerId);
+            stmt.setDate(2, Date.valueOf(dateDep));
+            stmt.setDate(3, Date.valueOf(dateArr));
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                float prix = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
+                somme += prix;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
