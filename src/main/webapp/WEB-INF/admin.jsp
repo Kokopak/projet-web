@@ -72,7 +72,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="admin?action=turnover_by_customer">
                     <i class="fa fa-user"></i>
                     <span>Chiffres d'affaires par client</span>
                   </a>

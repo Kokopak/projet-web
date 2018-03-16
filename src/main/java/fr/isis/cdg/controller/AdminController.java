@@ -64,6 +64,12 @@ public class AdminController extends HttpServlet {
             request.setAttribute("tBC", tBC);
             this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbycategory.jsp").forward(request, response);
         }
+        else if(action.equals("turnover_by_customer")) {
+            HashMap<String, Float> tBC = myDAO.turnoverByCustomer("2009-03-20", "2012-03-24");
+            request.setAttribute("tBC", tBC);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbycustomer.jsp").forward(request, response);
+        
+        }
         System.out.println(action);
     }
 

@@ -54,14 +54,20 @@
 				data: barChartData,
 				options: {
 					responsive: true,
+                                       
 					legend: {
 						position: 'top',
 					},
 					title: {
 						display: true,
-						text: "Chiffres d'affaires par catégorie d'article"
+						text: "Chiffres d'affaires par client"
 					},
                                         scales: {
+                                            xAxes: [{
+                                                ticks: {
+                                                    autoSkip: false
+                                                }       
+                                            }],
                                             yAxes: [{
                                                 ticks: {
                                                     beginAtZero: false
@@ -111,7 +117,7 @@
               </div>
               <ul class="nav-list">
                 <li>
-                  <a class="is-active" href="admin?action=turnover_by_category">
+                  <a href="admin?action=turnover_by_category">
                     <i class="fa fa-table"></i>
                     <span>Chiffres d'affaires par catégorie d'article</span>
                   </a>
@@ -123,7 +129,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="admin?action=turnover_by_customer">
+                  <a class="is-active" href="admin?action=turnover_by_customer">
                     <i class="fa fa-user"></i>
                     <span>Chiffres d'affaires par client</span>
                   </a>
@@ -133,7 +139,7 @@
           </aside>
           <article class="column column-75 column-offset-25 content">
             <h2 class="content__title">
-              <i class="fa fa-table"></i> Chiffres d'affaires par catégorie d'article
+              <i class="fa fa-table"></i> Chiffres d'affaires par client
             </h2>
             <div class="content__wrapper">
                 <div class="row">
