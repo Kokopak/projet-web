@@ -25,38 +25,24 @@
     
       <script src="https://unpkg.com/chart.js@2.7.2/dist/Chart.min.js"></script>
       <script>
+                var tableLabels = [];
+                var tableData = [];
+                <c:set var="count" value="0" />
+                <c:forEach items="${tBC}" var="entry">
+                    tableLabels[${ count }] = "${ entry.key }";
+                    tableData[${ count }] = ${ entry.value };
+                    <c:set var="count" value="${count + 1}" scope="page"/>
+                </c:forEach>
          	var color = Chart.helpers.color;
 		var barChartData = {
-			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+			labels: tableLabels,
                         
 			datasets: [{
-				label: 'Dataset 1',
-				backgroundColor: color('rgb(255, 99, 132)').alpha(0.5).rgbString(),
-				borderColor: 'rgb(255, 99, 132)',
+				label: "Chiffre d'affaires",
+				backgroundColor: color('rgb(52, 152, 219)').alpha(0.5).rgbString(),
+				borderColor: 'rgb(52, 152, 219)',
 				borderWidth: 1,
-				data: [
-					1,
-                                        2,
-                                        3,
-                                        4,
-                                        5,
-                                        6,
-                                        7
-				]
-			}, {
-				label: 'Dataset 2',
-				backgroundColor: color('rgb(54, 162, 235)').alpha(0.5).rgbString(),
-				borderColor: 'rgb(54, 162, 235)',
-				borderWidth: 1,
-				data: [
-					5,
-                                        6,
-                                        7,
-                                        8,
-                                        9,
-                                        10,
-                                        11
-				]
+				data: tableData
 			}]
 
 		};
@@ -73,12 +59,12 @@
 					},
 					title: {
 						display: true,
-						text: 'Chart.js Bar Chart'
+						text: "Chiffres d'affaires par catégorie d'article"
 					},
                                         scales: {
                                             yAxes: [{
                                                 ticks: {
-                                                    beginAtZero:true
+                                                    beginAtZero: false
                                                 }
                                             }]
                                         }

@@ -88,7 +88,7 @@
               <div class="row space-bottom">
                 <div class="column card">
                   <div class="card__title">
-                    <i class="fa fa-euro-sign" aria-hidden="true"></i> Chiffre d'affaire total :
+                    <i class="fa fa-euro-sign" aria-hidden="true"></i> Chiffre d'affaires total :
                   </div>
                   <div class="card__content">
                     <fmt:setLocale value = "fr_FR"/>

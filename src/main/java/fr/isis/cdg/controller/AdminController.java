@@ -9,6 +9,7 @@ import fr.isis.cdg.model.DAO;
 import fr.isis.cdg.model.DataSourceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,10 +50,9 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        DataSource myDataSource = DataSourceFactory.getDataSource();
+        DAO myDAO = new DAO(myDataSource);
         if(action == null) {
-            DataSource myDataSource = DataSourceFactory.getDataSource();
-            DAO myDAO = new DAO(myDataSource);
-
             request.setAttribute("total_turnover", myDAO.turnoverTotal());
             request.setAttribute("total_customers", myDAO.numberOfCustomers());
 
@@ -60,6 +60,8 @@ public class AdminController extends HttpServlet {
             
         }
         else if(action.equals("turnover_by_category")) {
+            HashMap<String, Float> tBC = myDAO.turnoverByCategory("2009-03-20", "2012-03-24");
+            request.setAttribute("tBC", tBC);
             this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbycategory.jsp").forward(request, response);
         }
         System.out.println(action);

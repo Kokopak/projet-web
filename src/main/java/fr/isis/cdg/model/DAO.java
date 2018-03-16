@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isis.cdg.model;
 
 import java.sql.Connection;
@@ -11,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -73,34 +69,38 @@ public class DAO {
         return somme;
     }
 
-    public float turnoverByCategory(String category, String dateDep, String dateArr) {
-        String sql = "select * "
+    public HashMap<String, Float> turnoverByCategory(String dateDep, String dateArr) {
+     String sql = "select * "
                 + "from product "
                 + "inner join purchase_order using (product_id) "
                 + "inner join product_code on (product_code = prod_code) "
                 + "inner join discount_code using(discount_code) "
-                + "where product_code=? "
-                + "and sales_date between ? and ?";
+                + "where sales_date between ? and ?";
 
-        float somme = 0;
+        HashMap<String, Float> result = new HashMap<String, Float>();
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, category);
-            stmt.setDate(2, Date.valueOf(dateDep));
-            stmt.setDate(3, Date.valueOf(dateArr));
+            stmt.setDate(1, Date.valueOf(dateDep));
+            stmt.setDate(2, Date.valueOf(dateArr));
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 float prix = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
-                somme += prix;
+                String productCode = rs.getString("product_code");
+                if(result.containsKey(productCode)) {
+                    result.put(productCode, result.get(productCode)+prix);
+                }
+                else {
+                    result.put(productCode, prix);
+                }
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return somme;
+        return result;
     }
 
     public float turnoverByState(String state, String dateDep, String dateArr) {
