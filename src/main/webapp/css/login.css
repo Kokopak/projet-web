@@ -1,0 +1,25 @@
+/* CSS Stylesheet */
+
+body{
+  background: #F0C27B;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #9b4dca, #F0C27B);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #9b4dca, #F0C27B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.login-container {
+  text-align: center;
+}
+
+.login-row {
+  border-top: 3px solid #9b4dca ;
+  width: 35%;
+  height: 250px;
+  margin-top : 13%;
+  padding-top: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
+  display:inline-block;
+  line-height:1.2;
+  text-align:left;
+  background-color: rgba(255,255,255,1);
+}

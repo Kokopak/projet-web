@@ -1,9 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-    </body>
+
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+
+    <title>Login</title>
+  </head>
+
+  <body>
+    <div class="container login-container">
+      <div class="row"><br></div>
+      <div class="row login-row">
+      <div class="column column-50 column-offset-25">
+          <form action="login" method="POST">
+            <fieldset>
+              <label for="userField">Mail</label>
+              <input type="text" placeholder="userexample" id="userField" name="userField">
+              <label for="mdpField">Mot de passe</label>
+              <input type="text" placeholder="●●●●●●●●" id="mdpField" name="mdpField">
+              <input class="button" type="submit" value="Log in">
+            </fieldset>
+        </form>
+
+      </div>
+      </div>
+    </div>
+  </body>
+
 </html>
