@@ -107,8 +107,8 @@ public class DAO {
         }
         return somme;
     }
-    
-     public float turnoverByCustomer(int customerId, String dateDep, String dateArr) {
+
+    public float turnoverByCustomer(int customerId, String dateDep, String dateArr) {
         String sql = "select * "
                 + "from product "
                 + "inner join purchase_order using (product_id) "
