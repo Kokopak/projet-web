@@ -5,12 +5,15 @@
  */
 package fr.isis.cdg.controller;
 
+import fr.isis.cdg.model.DAO;
+import fr.isis.cdg.model.DataSourceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  *
@@ -29,7 +32,8 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,7 +48,21 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if(action == null) {
+            DataSource myDataSource = DataSourceFactory.getDataSource();
+            DAO myDAO = new DAO(myDataSource);
+
+            request.setAttribute("total_turnover", myDAO.turnoverTotal());
+            request.setAttribute("total_customers", myDAO.numberOfCustomers());
+
+            this.getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+            
+        }
+        else if(action.equals("turnover_by_category")) {
+            this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbycategory.jsp").forward(request, response);
+        }
+        System.out.println(action);
     }
 
     /**

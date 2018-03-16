@@ -48,7 +48,7 @@
 
               <ul class="nav-list">
                 <li>
-                  <a class="is-active" href="admin">
+                  <a href="admin">
                     <i class="fa fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                   </a>
@@ -60,7 +60,7 @@
               </div>
               <ul class="nav-list">
                 <li>
-                  <a href="admin?action=turnover_by_category">
+                  <a class="is-active" href="admin?action=turnover_by_category">
                     <i class="fa fa-table"></i>
                     <span>Chiffres d'affaires par catégorie d'article</span>
                   </a>
@@ -82,35 +82,12 @@
           </aside>
           <article class="column column-75 column-offset-25 content">
             <h2 class="content__title">
-              <i class="fa fa-tachometer-alt"></i> Dashboard
+              <i class="fa fa-table"></i> Chiffres d'affaires par catégorie d'article
             </h2>
             <div class="content__wrapper">
-              <div class="row space-bottom">
-                <div class="column card">
-                  <div class="card__title">
-                    <i class="fa fa-euro-sign" aria-hidden="true"></i> Chiffre d'affaire total :
-                  </div>
-                  <div class="card__content">
-                    <fmt:setLocale value = "fr_FR"/>
-                    <div class="big-text"><fmt:formatNumber type = "currency" value = "${total_turnover}" /></div>
-                  </div>
-                </div>
-                <div class="column card">
-                  <div class="card__title">
-                    <i class="fa fa-users" aria-hidden="true"></i> Nombre de clients :
-                  </div>
-                  <div class="card__content">
-                    <div class="big-text">${ total_customers }</div>
-                  </div>
-                </div>
-              </div>
+              
 
-              <div class="row space-bottom">
-                <div class="column space-bottom">
-                </div>
-                <div class="column space-bottom">
-                </div>
-              </div>
+      
 
             </div>
           </article>

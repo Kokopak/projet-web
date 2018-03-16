@@ -46,6 +46,32 @@ public class DAO {
 
         return result;
     }
+    
+    public float turnoverTotal() {
+        String sql = "select * "
+                + "from product "
+                + "inner join purchase_order using (product_id) "
+                + "inner join product_code on (product_code = prod_code) "
+                + "inner join discount_code using(discount_code) ";
+
+        float somme = 0;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+        
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                float prix = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
+                somme += prix;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return somme;
+    }
 
     public float turnoverByCategory(String category, String dateDep, String dateArr) {
         String sql = "select * "
