@@ -22,6 +22,71 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    
+      <script src="https://unpkg.com/chart.js@2.7.2/dist/Chart.min.js"></script>
+      <script>
+         	var color = Chart.helpers.color;
+		var barChartData = {
+			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                        
+			datasets: [{
+				label: 'Dataset 1',
+				backgroundColor: color('rgb(255, 99, 132)').alpha(0.5).rgbString(),
+				borderColor: 'rgb(255, 99, 132)',
+				borderWidth: 1,
+				data: [
+					1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7
+				]
+			}, {
+				label: 'Dataset 2',
+				backgroundColor: color('rgb(54, 162, 235)').alpha(0.5).rgbString(),
+				borderColor: 'rgb(54, 162, 235)',
+				borderWidth: 1,
+				data: [
+					5,
+                                        6,
+                                        7,
+                                        8,
+                                        9,
+                                        10,
+                                        11
+				]
+			}]
+
+		};
+                
+                window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myBar = new Chart(ctx, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					responsive: true,
+					legend: {
+						position: 'top',
+					},
+					title: {
+						display: true,
+						text: 'Chart.js Bar Chart'
+					},
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero:true
+                                                }
+                                            }]
+                                        }
+				}
+			});
+
+		};
+        </script>
     </head>
 
     <body class="dashboard">
@@ -85,10 +150,11 @@
               <i class="fa fa-table"></i> Chiffres d'affaires par catégorie d'article
             </h2>
             <div class="content__wrapper">
-              
-
-      
-
+                <div class="row">
+                    <div class="column">
+                        <canvas id="canvas"></canvas>
+                    </div>
+                </div>
             </div>
           </article>
         </div>
