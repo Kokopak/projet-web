@@ -139,7 +139,7 @@
           </aside>
           <article class="column column-75 column-offset-25 content">
             <h2 class="content__title">
-              <i class="fa fa-table"></i> Chiffres d'affaires par client
+              <i class="fa fa-user"></i> Chiffres d'affaires par client
             </h2>
             <div class="content__wrapper">
                 <div class="row">
