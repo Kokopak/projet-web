@@ -5,12 +5,17 @@
  */
 package fr.isis.cdg.controller;
 
+import fr.isis.cdg.model.DAO;
+import fr.isis.cdg.model.DataSourceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 /**
  *
@@ -29,19 +34,7 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +49,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -70,7 +62,27 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println(request.getParameter("userField"));
+        String userField = request.getParameter("userField");
+        String mdpField = request.getParameter("mdpField");
+        
+        HttpSession session = request.getSession();
+        
+        DataSource myDataSource = DataSourceFactory.getDataSource();
+        DAO myDAO = new DAO(myDataSource);
+        HashMap<String, Integer> customers = myDAO.getCustomers();
+        
+        if(userField.equals("jumboeagle@example.com") && mdpField.equals("1")) {
+            session.setAttribute("email", "jumboeagle@example.com");
+            response.sendRedirect("admin");
+        }
+        else {
+            if(customers.containsKey(userField)) {
+                if(mdpField.equals(customers.get(userField).toString())) {
+                    session.setAttribute("email", userField);
+                    response.sendRedirect("customer");
+                }
+            }
+        }
     }
 
     /**

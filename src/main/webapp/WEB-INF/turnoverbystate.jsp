@@ -91,7 +91,7 @@
             <ul class="menu float-right">
               <li class="menu__item">
                 <i class="fa fa-sign-out-alt"></i>
-                <a href="#" class="menu__link">Déconnexion</a>
+                <a href="disconnect" class="menu__link">Déconnexion</a>
               </li>
             </ul>
           </section>

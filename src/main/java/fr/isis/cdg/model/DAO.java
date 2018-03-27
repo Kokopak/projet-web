@@ -68,6 +68,27 @@ public class DAO {
         }
         return somme;
     }
+    
+     public HashMap<String, Integer> getCustomers() {
+     String sql = "select email, customer_id from customer";
+
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                result.put(rs.getString("email"), rs.getInt("customer_id"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
 
     public HashMap<String, Float> turnoverByCategory(String dateDep, String dateArr) {
      String sql = "select * "
