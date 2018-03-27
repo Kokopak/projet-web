@@ -103,35 +103,39 @@ public class DAO {
         return result;
     }
 
-    public float turnoverByState(String state, String dateDep, String dateArr) {
+    public HashMap<String, Float> turnoverByState(String dateDep, String dateArr) {
         String sql = "select * "
                 + "from product "
                 + "inner join purchase_order using (product_id) "
                 + "inner join product_code on (product_code = prod_code) "
                 + "inner join discount_code using(discount_code) "
                 + "inner join customer using(customer_id) "
-                + "where state=? "
-                + "and sales_date between ? and ?";
+                + "where sales_date between ? and ?";
 
-        float somme = 0;
+        HashMap<String, Float> result = new HashMap<String, Float>();
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, state);
-            stmt.setDate(2, Date.valueOf(dateDep));
-            stmt.setDate(3, Date.valueOf(dateArr));
+            stmt.setDate(1, Date.valueOf(dateDep));
+            stmt.setDate(2, Date.valueOf(dateArr));
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 float prix = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
-                somme += prix;
+                String state = rs.getString("state");
+                if(result.containsKey(state)) {
+                    result.put(state, result.get(state)+prix);
+                }
+                else {
+                    result.put(state, prix);
+                }
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return somme;
+        return result;
     }
 
     public HashMap<String, Float> turnoverByCustomer(String dateDep, String dateArr) {
@@ -144,9 +148,7 @@ public class DAO {
                 + "where sales_date between ? and ?";
         
         HashMap<String, Float> result = new HashMap<String, Float>();
-
-        float somme = 0;
-
+        
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);

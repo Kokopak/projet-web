@@ -60,7 +60,7 @@
 					},
 					title: {
 						display: true,
-						text: "Chiffres d'affaires par client"
+						text: "Chiffres d'affaires par zone géographique"
 					},
                                         scales: {
                                             xAxes: [{
@@ -123,13 +123,13 @@
                   </a>
                 </li>
                 <li>
-                  <a href="admin?action=turnover_by_state">
+                  <a class="is-active" href="admin?action=turnover_by_state">
                     <i class="fa fa-globe"></i>
                     <span>Chiffres d'affaires par zone géographique</span>
                   </a>
                 </li>
                 <li>
-                  <a class="is-active" href="admin?action=turnover_by_customer">
+                  <a href="admin?action=turnover_by_customer">
                     <i class="fa fa-user"></i>
                     <span>Chiffres d'affaires par client</span>
                   </a>
@@ -139,7 +139,7 @@
           </aside>
           <article class="column column-75 column-offset-25 content">
             <h2 class="content__title">
-              <i class="fa fa-user"></i> Chiffres d'affaires par client
+              <i class="fa fa-globe"></i> Chiffres d'affaires par zone géographique
             </h2>
             <div class="content__wrapper">
                 <div class="row">

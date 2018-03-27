@@ -117,7 +117,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="admin?action=turnover_by_state">
                     <i class="fa fa-globe"></i>
                     <span>Chiffres d'affaires par zone géographique</span>
                   </a>
