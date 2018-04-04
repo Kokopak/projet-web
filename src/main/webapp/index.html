@@ -14,18 +14,24 @@
   </head>
 
   <body>
+    <div class="fullscreen-bg">
+    <video loop muted autoplay class="fullscreen-bg__video">
+        <source src="https://13-lvl3-pdl.vimeocdn.com/01/4525/4/122626364/347712883.mp4?expires=1522885040&token=071594006294f3c231092" type="video/mp4">
+    </video>
+    </div>
     <div class="container login-container">
       <div class="row"><br></div>
       <div class="row login-row">
       <div class="column column-50 column-offset-25">
-          <form action="login" method="POST">
-            <fieldset>
-              <label for="userField">Mail</label>
-              <input type="text" placeholder="userexample" id="userField" name="userField">
-              <label for="mdpField">Mot de passe</label>
-              <input type="text" placeholder="●●●●●●●●" id="mdpField" name="mdpField">
-              <input class="button" type="submit" value="Log in">
-            </fieldset>
+        <form action="login" method="POST">
+          <fieldset>
+            
+            <label for="userField">Mail</label>
+            <input type="text" placeholder="user@example.com" id="userField" name="userField">
+            <label for="mdpField">Mot de passe</label>
+            <input type="password" placeholder="●●●●●●●●" id="mdpField" name="mdpField">
+            <input class="button" type="submit" value="Log in">
+          </fieldset>
         </form>
 
       </div>

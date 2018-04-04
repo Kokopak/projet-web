@@ -1,17 +1,11 @@
 /* CSS Stylesheet */
 
-body{
-  background: #F0C27B;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #9b4dca, #F0C27B);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #9b4dca, #F0C27B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-}
 .login-container {
   text-align: center;
 }
 
 .login-row {
-  border-top: 3px solid #9b4dca ;
+  border-top: 1px solid white ;
   width: 35%;
   height: 250px;
   margin-top : 13%;
@@ -21,5 +15,22 @@ body{
   display:inline-block;
   line-height:1.2;
   text-align:left;
-  background-color: rgba(255,255,255,1);
+  background-color: rgba(211,211,211,0.75);
+}
+
+
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    right:0;
+    width: 100%;
 }
