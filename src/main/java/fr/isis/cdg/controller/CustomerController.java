@@ -73,7 +73,18 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        
+        DataSource myDataSource = DataSourceFactory.getDataSource();
+        DAO myDAO = new DAO(myDataSource);
+        
+        if(action.equals("update_quantity")) {
+            int newQuantity = Integer.parseInt(request.getParameter("newQuantity"));
+            int orderNum = Integer.parseInt(request.getParameter("orderNum"));
+            myDAO.updateQuantityFor(orderNum, newQuantity);
+            
+            
+        }
     }
 
     /**

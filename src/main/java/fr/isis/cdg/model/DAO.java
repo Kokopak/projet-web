@@ -254,7 +254,24 @@ public class DAO {
             }
             
             return lPO;
-        
     }
+    
+    public void updateQuantityFor(int orderNum, int newQuantity) {
+        String sql = "update purchase_order "
+                + "set quantity = ? "
+                + "where order_num = ?";
+        
+            try {
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setInt(1, newQuantity);
+                stmt.setInt(2, orderNum);
+                
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    } 
 
 }

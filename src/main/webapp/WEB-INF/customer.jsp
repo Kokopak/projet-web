@@ -21,6 +21,39 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
         <title>Interface client</title>
+        
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                $('.edit_link').click(function(e) {
+                    e.preventDefault();
+                    let tds = $(this).parents('tr').find('td');
+                    
+                    editTd(tds[0], $(tds[3]).html());
+               
+                    });
+                });
+            
+            function editTd(td, orderNum) {
+                    $(td).prop('contenteditable', true);
+                    $(td).focus();
+                    $(td).on('focusout', function(e) {
+                        $(td).prop('contenteditable', false);
+                        $(td).blur();
+                    })
+                    $(td).on('keypress', function(e) {
+                        if(e.which == 13) {
+                            e.preventDefault();
+                            $.post('customer?action=update_quantity', {orderNum : orderNum, newQuantity: $(td).html()})
+                                    .done(function(data) {
+                                        location.reload();
+                                    });
+                            }
+                        });
+            }
+             
+            
+        </script>
     </head>
 
     <body class="dashboard">
@@ -62,7 +95,7 @@
                                  <fmt:setLocale value = "fr_FR"/>
                                 <td><fmt:formatNumber value="${purchaseOrder[2]}" /> €</td>
                                 <c:set var="total" value="${total + Float.parseFloat(purchaseOrder[2]) }" scope="page"/>
-                                <td><i class="fa fa-edit"></i></td>
+                                <td><a href="#" class="edit_link"><i class="fa fa-edit"></i></a></td>
                             </tr>
                         </c:forEach> 
                         <tr style="margin-bottom: 15px">
