@@ -81,3 +81,7 @@
 .yellow-text { color: #ffdd57; }
 
 .space-bottom { margin-bottom: 1em; }
+
+.row .column.column-offset-15 {
+  margin-left: 15%;
+}

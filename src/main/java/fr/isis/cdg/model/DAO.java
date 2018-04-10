@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -193,6 +194,67 @@ public class DAO {
         }
         
         return result;
+    }
+    
+    public float priceOfOrder(int orderNum) {
+         String sql = "select * "
+                + "from product "
+                + "inner join purchase_order using (product_id) "
+                + "inner join product_code on (product_code = prod_code) "
+                + "inner join discount_code using(discount_code) "
+                + "where order_num = ?";
+        
+        float res = 0;
+        
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, orderNum);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                res = (rs.getFloat("purchase_cost") - (rs.getFloat("purchase_cost") * rs.getFloat("rate") / 100)) * rs.getInt("quantity") + rs.getFloat("shipping_cost");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;  
+    }
+    
+    public ArrayList<String[]> getPurchaseOfCustomer(int customerId) {
+            String sql = "select * "
+                + "from purchase_order "
+                + "inner join product using (product_id) "
+                + "where customer_id = ?";
+            
+            ArrayList<String[]> lPO = new ArrayList<String[]>();
+            
+            
+            try {
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setInt(1, customerId);
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    String[] purchaseOrder = new String[5];
+                    purchaseOrder[0] = Integer.toString(rs.getInt("quantity"));
+                    purchaseOrder[1] = rs.getString("description");
+                    purchaseOrder[2] = Float.toString(priceOfOrder(rs.getInt("order_num")));
+                    purchaseOrder[3] = rs.getDate("sales_date").toString();
+                    purchaseOrder[4] = Integer.toString(rs.getInt("order_num"));
+                   
+                    lPO.add(purchaseOrder);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return lPO;
+        
     }
 
 }
