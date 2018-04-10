@@ -272,6 +272,29 @@ public class DAO {
             } catch (SQLException ex) {
                 Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-    } 
+    }
+    
+    public HashMap<String, Integer> listProducts() {
+             String sql = "select * "
+                + "from product";
+            
+            HashMap<String, Integer> result = new HashMap<String, Integer>();
+            
+            
+            try {
+                Connection connection = dataSource.getConnection();
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    result.put(rs.getString("description"), rs.getInt("product_id"));
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return result;
+    }
 
 }

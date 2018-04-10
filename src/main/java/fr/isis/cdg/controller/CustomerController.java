@@ -11,6 +11,7 @@ import fr.isis.cdg.model.PurchaseOrder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,8 +42,10 @@ public class CustomerController extends HttpServlet {
         DAO myDAO = new DAO(myDataSource);
         
         ArrayList<String[]> lPO = myDAO.getPurchaseOfCustomer((int) session.getAttribute("userId"));
+        HashMap<String, Integer> products = myDAO.listProducts();
         
         request.setAttribute("list_purchase_order", lPO);
+        request.setAttribute("list_products", products);
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/customer.jsp").forward(request, response);
     }

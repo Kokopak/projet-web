@@ -123,18 +123,13 @@
                         <div class="column">
                             <select name="Produits" form="carform">
                                 <option value="" disabled selected>Produit</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
+                                <c:forEach var="product" items="${list_products}">
+                                    <option value="${product.value}">${ product.key }</option>
+                                </c:forEach>
                             </select>
                         </div>
                         <div class="column">
-                            <select name="Quantité" form="carform">
-                                <option value="" disabled selected>Quantité</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
+                            <input type="number" placeholder="Quantité">
                         </div>
                     </div>
 
@@ -143,7 +138,7 @@
                             <p>Total de la commande : </p>
                         </div>
                         <div class="column column-75">
-                            <input type="text" name="Prix de la commande" />
+                            <input type="text" name="Prix de la commande" disabled />
                         </div>
 
                     </div>
