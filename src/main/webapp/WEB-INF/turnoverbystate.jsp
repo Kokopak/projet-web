@@ -176,10 +176,11 @@
                         <i class="fa fa-globe"></i> Chiffres d'affaires par zone géographique
                     </h2>
 
-                    <form style="padding: 15px; background-color: #f5f5f5"> 
+                    <form style="padding: 15px; background-color: #f5f5f5" method="GET" action="admin"> 
                         <div class="row">
-                            <input class="column column-25 date-input" style="margin-left: 17.5%" type="text" id="date_debut_input" placeholder="Date de début">
-                            <input class="column column-25 date-input" type="text" id="date_fin_input" placeholder="Date de fin">
+                            <input type="hidden" value="${ param.action }" name="action">
+                            <input class="column column-25 date-input" style="margin-left: 17.5%" type="text" id="date_debut_input" placeholder="Date de début" name="date_dep" value="${ param.date_dep}">
+                            <input class="column column-25 date-input" type="text" id="date_fin_input" placeholder="Date de fin" name="date_fin" value="${ param.date_fin}">
                             <input class="column column-25 date-input"type="submit" value="Valider">
                         </div>
                     </form>
