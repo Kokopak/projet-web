@@ -70,21 +70,24 @@ public class LoginController extends HttpServlet {
         DataSource myDataSource = DataSourceFactory.getDataSource();
         DAO myDAO = new DAO(myDataSource);
         HashMap<String, Integer> customers = myDAO.getCustomers();
-        
-        if(userField.equals("jumboeagle@example.com") && mdpField.equals("1")) {
-            session.setAttribute("email", "jumboeagle@example.com");
-            session.setAttribute("userId", 1);
-            response.sendRedirect("admin");
-        }
-        else {
-            if(customers.containsKey(userField)) {
-                if(mdpField.equals(customers.get(userField).toString())) {
-                    session.setAttribute("email", userField);
-                    session.setAttribute("userId", customers.get(userField));
+        HashMap<String, String> customersWithName = myDAO.getCustomersWithName();        
+     
+        if(customers.containsKey(userField)) {
+            if(mdpField.equals(customers.get(userField).toString())) {
+                session.setAttribute("email", userField);
+                session.setAttribute("name", customersWithName.get(userField));
+                session.setAttribute("userId", customers.get(userField));
+
+                if(userField.equals("jumboeagle@example.com")) {
+                    response.sendRedirect("admin");
+                }
+                else {
                     response.sendRedirect("customer");
                 }
+
             }
         }
+
     }
 
     /**

@@ -71,9 +71,9 @@ public class DAO {
     }
     
      public HashMap<String, Integer> getCustomers() {
-     String sql = "select email, customer_id from customer";
+        String sql = "select email, customer_id from customer";
 
-        HashMap<String, Integer> result = new HashMap<String, Integer>();
+        HashMap<String, Integer> result = new HashMap<>();
 
         try {
             Connection connection = dataSource.getConnection();
@@ -82,6 +82,27 @@ public class DAO {
 
             while (rs.next()) {
                 result.put(rs.getString("email"), rs.getInt("customer_id"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+     
+    public HashMap<String, String> getCustomersWithName() {
+        String sql = "select email, name from customer";
+
+        HashMap<String, String> result = new HashMap<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                result.put(rs.getString("email"), rs.getString("name"));
             }
 
         } catch (SQLException ex) {

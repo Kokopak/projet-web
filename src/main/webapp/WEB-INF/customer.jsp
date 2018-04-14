@@ -73,6 +73,8 @@
             </header>
             <div class="row clearfix">
                 <article class="column column-75 column-offset-15 content">
+                    <h1 class="content__title">Bienvenue ${ name } ! </h1>
+                    <br >
                     <h2 class="content__title">
                         <i class="fas fa-shopping-basket"></i> Vos commandes
                     </h2>
