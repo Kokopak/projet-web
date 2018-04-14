@@ -1,21 +1,21 @@
 /* CSS Stylesheet */
 
 .login-container {
-  text-align: center;
+    text-align: center;
 }
 
 .login-row {
-  border-top: 1px solid white ;
-  width: 35%;
-  height: 250px;
-  margin-top : 13%;
-  padding-top: 30px;
-  padding-left: 0px;
-  padding-right: 0px;
-  display:inline-block;
-  line-height:1.2;
-  text-align:left;
-  background-color: rgba(211,211,211,0.75);
+    border-top: 1px solid white ;
+    width: 35%;
+    height: 250px;
+    margin-top : 13%;
+    padding-top: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
+    display:inline-block;
+    line-height:1.2;
+    text-align:left;
+    background-color: rgba(211,211,211,0.75);
 }
 
 

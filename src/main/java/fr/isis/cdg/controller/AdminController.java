@@ -34,8 +34,7 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-     
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,45 +49,40 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(false);
-        
-        if(session == null || session.getAttribute("email") == null) {
+
+        if (session == null || session.getAttribute("email") == null) {
             response.sendRedirect("index.html");
-        }
-        else if (session.getAttribute("email").equals("jumboeagle@example.com")){
+        } else if (session.getAttribute("email").equals("jumboeagle@example.com")) {
             String action = request.getParameter("action");
             DataSource myDataSource = DataSourceFactory.getDataSource();
             DAO myDAO = new DAO(myDataSource);
-            if(action == null) {
+            if (action == null) {
                 request.setAttribute("total_turnover", myDAO.turnoverTotal());
                 request.setAttribute("total_customers", myDAO.numberOfCustomers());
 
                 this.getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
 
-            }
-            else if(action.equals("turnover_by_category")) {
+            } else if (action.equals("turnover_by_category")) {
                 HashMap<String, Float> tBC = myDAO.turnoverByCategory("2009-03-20", "2012-03-24");
                 request.setAttribute("tBC", tBC);
                 this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbycategory.jsp").forward(request, response);
-            }
-            else if(action.equals("turnover_by_customer")) {
+            } else if (action.equals("turnover_by_customer")) {
                 HashMap<String, Float> tBC = myDAO.turnoverByCustomer("2009-03-20", "2012-03-24");
                 request.setAttribute("tBC", tBC);
                 this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbycustomer.jsp").forward(request, response);
 
-            }
-            else if(action.equals("turnover_by_state")) {
+            } else if (action.equals("turnover_by_state")) {
                 HashMap<String, Float> tBC = myDAO.turnoverByState("2009-03-20", "2012-03-24");
                 request.setAttribute("tBC", tBC);
                 this.getServletContext().getRequestDispatcher("/WEB-INF/turnoverbystate.jsp").forward(request, response);
 
-            }   
-        }
-        else {
+            }
+        } else {
             response.sendRedirect("customer");
         }
-       
+
     }
 
     /**

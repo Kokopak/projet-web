@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,24 +64,23 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String userField = request.getParameter("userField");
         String mdpField = request.getParameter("mdpField");
-        
+
         HttpSession session = request.getSession();
-        
+
         DataSource myDataSource = DataSourceFactory.getDataSource();
         DAO myDAO = new DAO(myDataSource);
         HashMap<String, Integer> customers = myDAO.getCustomers();
-        HashMap<String, String> customersWithName = myDAO.getCustomersWithName();        
-     
-        if(customers.containsKey(userField)) {
-            if(mdpField.equals(customers.get(userField).toString())) {
+        HashMap<String, String> customersWithName = myDAO.getCustomersWithName();
+
+        if (customers.containsKey(userField)) {
+            if (mdpField.equals(customers.get(userField).toString())) {
                 session.setAttribute("email", userField);
                 session.setAttribute("name", customersWithName.get(userField));
                 session.setAttribute("userId", customers.get(userField));
 
-                if(userField.equals("jumboeagle@example.com")) {
+                if (userField.equals("jumboeagle@example.com")) {
                     response.sendRedirect("admin");
-                }
-                else {
+                } else {
                     response.sendRedirect("customer");
                 }
 

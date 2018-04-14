@@ -36,17 +36,17 @@ public class CustomerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(false);
         DataSource myDataSource = DataSourceFactory.getDataSource();
         DAO myDAO = new DAO(myDataSource);
-        
+
         ArrayList<String[]> lPO = myDAO.getPurchaseOfCustomer((int) session.getAttribute("userId"));
         HashMap<String, Integer> products = myDAO.listProducts();
-        
+
         request.setAttribute("list_purchase_order", lPO);
         request.setAttribute("list_products", products);
-        
+
         this.getServletContext().getRequestDispatcher("/WEB-INF/customer.jsp").forward(request, response);
     }
 
@@ -77,16 +77,15 @@ public class CustomerController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        
+
         DataSource myDataSource = DataSourceFactory.getDataSource();
         DAO myDAO = new DAO(myDataSource);
-        
-        if(action.equals("update_quantity")) {
+
+        if (action.equals("update_quantity")) {
             int newQuantity = Integer.parseInt(request.getParameter("newQuantity"));
             int orderNum = Integer.parseInt(request.getParameter("orderNum"));
             myDAO.updateQuantityFor(orderNum, newQuantity);
-            
-            
+
         }
     }
 
