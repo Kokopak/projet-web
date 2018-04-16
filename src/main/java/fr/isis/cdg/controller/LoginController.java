@@ -84,7 +84,11 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("customer");
                 }
 
+            } else {
+                response.sendRedirect("index.html");
             }
+        } else {
+            response.sendRedirect("index.html");
         }
 
     }
