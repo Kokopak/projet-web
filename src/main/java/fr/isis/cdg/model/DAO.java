@@ -312,5 +312,64 @@ public class DAO {
 
         return result;
     }
+    
+    public int getMaxOrderNum() {
+        String sql = "select max(order_num) as maximum from purchase_order";
+        int max = 0;
+        
+        try {
+            Connection connection = dataSource.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                max = rs.getInt("maximum");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return max;
+    }
+    
+    public void insertPurchaseOrder(int customerId, int productId, int quantity, String salesDate) {
+        String sql = "insert into purchase_order values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setInt(1, getMaxOrderNum() + 1);
+            stmt.setInt(2, customerId);
+            stmt.setInt(3, productId);
+            stmt.setInt(4, quantity);
+            stmt.setInt(5, 250);
+            stmt.setDate(6, Date.valueOf(salesDate));
+            stmt.setDate(7, Date.valueOf(salesDate));
+            stmt.setString(8, "Poney Express");
+            
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    public void deletePurchaseOrder(int orderNum) {
+        String sql = "delete from purchase_order where order_num = ?";
+        
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setInt(1, orderNum);
+            
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
 
 }

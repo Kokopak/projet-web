@@ -32,6 +32,14 @@
                     editTd(tds[0], $(tds[3]).html());
 
                 });
+                
+                $('.delete_link').click(function (e) {
+                    e.preventDefault();
+                    let tds = $(this).parents('tr').find('td');
+
+                    deleteTd(tds[0], $(tds[3]).html());
+
+                });
             });
 
             function editTd(td, orderNum) {
@@ -50,6 +58,14 @@
                                 });
                     }
                 });
+            }
+            
+            function deleteTd(td, orderNum) {
+                $.post('customer?action=delete_purchase', {orderNum : orderNum})
+                        .done(function(data) {
+                            location.reload();
+                        });
+                        
             }
 
 
@@ -97,7 +113,10 @@
                                 <fmt:setLocale value = "fr_FR"/>
                                 <td><fmt:formatNumber value="${purchaseOrder[2]}" /> €</td>
                                 <c:set var="total" value="${total + Float.parseFloat(purchaseOrder[2]) }" scope="page"/>
-                                <td><a href="#" class="edit_link"><i class="fa fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" class="edit_link"><i class="fa fa-edit"></i></a>
+                                    <a href="#" class="delete_link"><i style="color: #EC644B" class="fa fa-trash"></i></a>
+                                </td>
                             </tr>
                         </c:forEach> 
                         <tr style="margin-bottom: 15px">
@@ -121,29 +140,24 @@
                     <h2 class="content__title">
                         <i class="fas fa-plus"></i> Ajouter une  commande
                     </h2>
-                    <div class="row">
-                        <div class="column">
-                            <select name="Produits" form="carform">
-                                <option value="" disabled selected>Produit</option>
-                                <c:forEach var="product" items="${list_products}">
-                                    <option value="${product.value}">${ product.key }</option>
-                                </c:forEach>
-                            </select>
+                    <form action="customer?action=add_purchase" method="POST">
+                        <div class="row">
+                                <div class="column">
+                                    <select name="produit">
+                                        <option value="null" disabled selected>Produit</option>
+                                        <c:forEach var="product" items="${list_products}">
+                                            <option value="${product.value}">${ product.key }</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="column">
+                                    <input type="number" placeholder="Quantité" name="quantity">
+                                </div>  
+                                <div class="column">
+                                    <input class="column column-100" type="submit" value="Valider">
+                                </div>
                         </div>
-                        <div class="column">
-                            <input type="number" placeholder="Quantité">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">
-                            <p>Total de la commande : </p>
-                        </div>
-                        <div class="column column-75">
-                            <input type="text" name="Prix de la commande" disabled />
-                        </div>
-
-                    </div>
+                    </form>
                 </article>
             </div>
         </main>

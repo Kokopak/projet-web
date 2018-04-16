@@ -10,7 +10,10 @@ import fr.isis.cdg.model.DataSourceFactory;
 import fr.isis.cdg.model.PurchaseOrder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -76,6 +79,8 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(false);
         String action = request.getParameter("action");
 
         DataSource myDataSource = DataSourceFactory.getDataSource();
@@ -85,7 +90,20 @@ public class CustomerController extends HttpServlet {
             int newQuantity = Integer.parseInt(request.getParameter("newQuantity"));
             int orderNum = Integer.parseInt(request.getParameter("orderNum"));
             myDAO.updateQuantityFor(orderNum, newQuantity);
-
+        }
+        else if (action.equals("add_purchase")) {
+            int productId = Integer.parseInt(request.getParameter("produit"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            
+            DateFormat toFormat = new SimpleDateFormat("yyyy-MM-dd");
+            
+            
+            myDAO.insertPurchaseOrder((int) session.getAttribute("userId"), productId, quantity, toFormat.format(new Date()));
+            
+            response.sendRedirect("customer");
+        }
+        else if (action.equals("delete_purchase")) {
+            myDAO.deletePurchaseOrder(Integer.parseInt(request.getParameter("orderNum")));
         }
     }
 
