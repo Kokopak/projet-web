@@ -7,7 +7,6 @@ package fr.isis.cdg.controller;
 
 import fr.isis.cdg.model.DAO;
 import fr.isis.cdg.model.DataSourceFactory;
-import fr.isis.cdg.model.PurchaseOrder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
