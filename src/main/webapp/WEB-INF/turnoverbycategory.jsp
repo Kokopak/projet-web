@@ -14,7 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=7">
         <title>Interface administrateur</title>
-        <link rel="stylesheet" href="css/style.css">
+        
 
         <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
         <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -25,6 +25,7 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
         <link rel="stylesheet" href="css/pikaday_custom.css">
+        <link rel="stylesheet" href="css/style.css">
 
         <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>

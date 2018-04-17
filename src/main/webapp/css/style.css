@@ -85,3 +85,7 @@
 .row .column.column-offset-15 {
     margin-left: 15%;
 }
+
+input, select {
+    color: #000;
+}

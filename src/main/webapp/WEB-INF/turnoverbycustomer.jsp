@@ -25,6 +25,7 @@
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
         <link rel="stylesheet" href="css/pikaday_custom.css">
+        <link rel="stylesheet" href="css/style.css">
 
         <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
